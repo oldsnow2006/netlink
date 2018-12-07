@@ -16,7 +16,7 @@ class danwei(object):
         self.danweiip=danweiip
         self.img_jpg = PhotoImage(file=PICADDRESS)
         self.frames = []
-        self.label_jpg=Label()
+
 
 
 
@@ -31,13 +31,15 @@ class danwei(object):
         :param row: 图片显示的行
         :param coloum: 图片显示的列
         """
-        self.add_animation()
-        # self.label_jpg=Label()
+        self.add_animation(False)
+        self.label_jpg=Label()
         self.label_jpg = Label(self.root, image=self.img_jpg)
 
         #调用递归函数play_animation
 
         self.label_jpg.after(0,self.play_animation,0,row,column)
+
+        #这行用来确定图片显示的初始位置，不然后面的图片找不到地方存放，就会乱码
         self.label_jpg.grid(row=row, column=column, padx=10)
     def show_danweiname(self,row,coloum):
     #     """显示单位名"""
@@ -56,22 +58,29 @@ class danwei(object):
         self.show_danweiname(row,coloum)
         self.show_danweiip(row,coloum)
 
-    def add_animation(self):
+    def add_animation(self,is_link):
         """加载图片文件并添加图片到列表frames"""
-
-        for i in range(0,6):
-            self.frame=PhotoImage(file='./resource/router'+str(i)+'.gif')
-            self.frames.append(self.frame)
+        if is_link==True:  #如果网络通，就加载绿灯图标
+            for i in range(0, 6):
+                self.frame=PhotoImage(file='./resource/router_green'+str(i)+'.gif')
+                self.frames.append(self.frame)
+        else:
+            for i in range(0, 6):
+                self.frame=PhotoImage(file='./resource/router_red'+str(i)+'.gif')
+                self.frames.append(self.frame)
 
     def play_animation(self,idx,row,column):
 
         """循环显示动画图片"""
 
         frame=self.frames[idx]
+        #修改图片
         self.label_jpg.configure(image=frame)
         idx+=1
         if idx==6:
             idx=0
+
+        #500毫秒执行递归函数一次
         self.label_jpg.after(500,self.play_animation,idx,row,column)
 
 
