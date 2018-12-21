@@ -1,6 +1,7 @@
+# encoding:utf-8
 from configparser import *
 from view.setting import INIFILEURL  #INI文件地址常量
-
+import re
 
 
 class ReadIniFile(ConfigParser):
@@ -11,6 +12,7 @@ class ReadIniFile(ConfigParser):
 
         self.dwname = []
         self.dwip = []
+        # self.remove_BOM(INIFILEURL)
         self.read(INIFILEURL)
         self.ini=self.items("danwei")
         dwinfo = []
@@ -28,3 +30,9 @@ class ReadIniFile(ConfigParser):
     def get_dwip(self):
         return self.dwip
 
+    # def remove_BOM(self,config_path):  # 去掉配置文件开头的BOM字节
+    #     content = open(config_path).read()
+    #     content = re.sub(r"\xfe\xff", "", content)
+    #     content = re.sub(r"\xff\xfe", "", content)
+    #     content = re.sub(r"\xef\xbb\xbf", "", content)
+    #     open(config_path, 'w').write(content)
