@@ -7,4 +7,4 @@ PICADDRESS1="./resource/router1.gif"
 
 
 #保存单位名和IP的INI文件路径
-INIFILEURL = "model/config.ini"  # 配置   文件路径
+INIFILEURL = "model/config.cfg"  # 配置   文件路径

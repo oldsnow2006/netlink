@@ -13,7 +13,7 @@ class ReadIniFile(ConfigParser):
         self.dwname = []
         self.dwip = []
         # self.remove_BOM(INIFILEURL)
-        self.read(INIFILEURL)
+        self.read(INIFILEURL,encoding='UTF-8')
         self.ini=self.items("danwei")
         dwinfo = []
 

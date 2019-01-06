@@ -1,7 +1,7 @@
 import os
 import sys
 import threading
-from multiprocessing import Process
+
 
 class PyPing(object):
     """调用WINDOWS的PING命令"""

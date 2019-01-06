@@ -18,11 +18,12 @@ class danwei(object):
         self.danweiip=danweiip
         self.img_jpg = PhotoImage(file=PICADDRESS)
         self.frames = []
+        self.is_link=None
 
 
 
-
-
+    def aaa(self):
+        print('aaa')
     # def update(self):
     #     self.label_jpg=self.label_jpg_group[idx]
     #
@@ -76,7 +77,7 @@ class danwei(object):
         #         #     pass
         #         #     # self.frame=PhotoImage(file='./resource/router0.gif')
         #         #     # self.frames.append(self.frame)
-    def play_animation(self,idx,row,column,button):
+    def play_animation(self,idx,button):
 
         """循环显示动画图片
         :param idx: 图片动画的帧数
@@ -86,21 +87,22 @@ class danwei(object):
         """
 
         frame=self.frames[idx]
-        # print(idx)
+
         #修改图片
+
         self.label_jpg.configure(image=frame)
-        idx+=1
+        idx += 1
+
         if idx==len(self.frames):   #动画图片的数量
             idx=0
-
 
         #500毫秒执行递归函数一次,把after递归函数返回的值赋值给self.id，self.id的作用很大，
          #用来作为after_cancel函数的参数，用来结束after递归函数
 
-        self.id=self.label_jpg.after(500,self.play_animation,idx,row,column,button)
+        self.id=self.label_jpg.after(500,self.play_animation,idx,button)
         # print(button['state'])
-        if button['state']==DISABLED:
-            self.label_jpg.after_cancel(self.id)
+        # if button['state']==DISABLED:
+        #     self.label_jpg.after_cancel(self.id)
 
     def show_animation(self,is_link,row,column,button):
 
@@ -112,15 +114,13 @@ class danwei(object):
         """
 
 
-
         self.add_animation(is_link)
-        self.label_jpg = Label()
+
         self.label_jpg = Label(self.root, image=self.img_jpg)
 
         # 调用递归函数play_animation
         # if button_state == 'DISABLED':
-        self.label_jpg.after(0,self.play_animation,0,row,column,button)
-
+        self.label_jpg.after(0,self.play_animation,0,button)
         # 这行用来确定图片显示的初始位置，不然后面的图片找不到地方存放，就会乱码
         self.label_jpg.grid(row=row, column=column, padx=10)
 
