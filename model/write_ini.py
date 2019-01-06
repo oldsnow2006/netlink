@@ -11,7 +11,7 @@ class WriteIniFile(ConfigParser):
 
         self.isection=isection
     def write_ini_file(self):
-        # TODO:这个地方写文件失败
+        # 先删除SECTION和其下的内容，再添加一个同名的SECTION，相当于先把SECTION清空再添加
         self.read(INIFILEURL,encoding='UTF-8')
         self.remove_section(self.isection)
         self.add_section(self.isection)
