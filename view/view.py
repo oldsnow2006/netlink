@@ -254,6 +254,7 @@ class MainWindows(object):
             if not dw.is_link:
                 pm=PlayMusic('resource/alarm.mp3',5)
                 pm.play_music()
+                break
         t2=time.time()
         # for show_anmation_thread in self.show_animation_thread_list:
         #     show_anmation_thread.join()
