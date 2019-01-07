@@ -11,7 +11,7 @@ class PingThread(threading.Thread):
         :param name: 线程名
         :param dw_queue: 单位的队列
 
-        :param is_link_queue: 网络是否联通队列
+
         """
         super().__init__()
 
@@ -33,7 +33,6 @@ class PingThread(threading.Thread):
             ip=dw.danweiip
             dw.is_link=self.ping_ip(host,ip)
 
-            # self.is_link_queue.put(is_link)
 
 
 

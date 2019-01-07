@@ -1,7 +1,7 @@
 import os
 import sys
 import threading
-
+from .play_music import *
 
 class PyPing(object):
     """调用WINDOWS的PING命令"""
@@ -18,6 +18,7 @@ class PyPing(object):
             return True
         else:
             print('%s网络连接中断' % (self.host))
+
             return False
 
 

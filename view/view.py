@@ -6,6 +6,7 @@ from model.ping_thread import *
 from model.show_animation_thread import *
 from queue import Queue
 from model.write_ini import *
+from model.play_music import *
 import re
 class MainWindows(object):
 #定义主窗体
@@ -200,7 +201,7 @@ class MainWindows(object):
 
     def create_ping_thread(self,ping_dw_queue):
         #创建PING线程
-        ping_thread_name=['ping线程1','ping线程2','ping线程3','ping线程4','ping线程5','ping线程6','ping线程7','ping线程8']
+        ping_thread_name=['ping线程1','ping线程2','ping线程3','ping线程4','ping线程5','ping线程6','ping线程7','ping线程8','ping线程9','ping线程10','ping线程11']
         for thread in ping_thread_name:
             t_ping=PingThread(thread,ping_dw_queue)
             self.ping_thread_list.append(t_ping)
@@ -235,8 +236,8 @@ class MainWindows(object):
         for ping_thread in self.ping_thread_list:
             ping_thread.start()
 
-        #TODO:此处延时极为重要，如果这儿不延时，SHOW_anmation_thread线程启动时，PING线程还来不及PING各网址，那么
-        #TODO:dw对象的is_link还不累被赋值，这样就会出错
+        #此处延时极为重要，如果这儿不延时，SHOW_anmation_thread线程启动时，PING线程还来不及PING各网址，那么
+        #dw对象的is_link还来不及被赋值，这样就会出错
         time.sleep(2)
         # 启动显示线程
         for show_anmation_thread in self.show_animation_thread_list:
@@ -247,6 +248,12 @@ class MainWindows(object):
         #主线程等待子线程结束
         for ping_thread in self.ping_thread_list:
             ping_thread.join()
+
+        #遍历单位里的dw.is_link属性，如果里面有FLASE，播放报警声音,PLAYMUSIC类的构造函数第二个参数是播放次数
+        for dw in self.dwgroup:
+            if not dw.is_link:
+                pm=PlayMusic('resource/alarm.mp3',5)
+                pm.play_music()
         t2=time.time()
         # for show_anmation_thread in self.show_animation_thread_list:
         #     show_anmation_thread.join()
